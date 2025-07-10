@@ -1,26 +1,24 @@
 .chatRoom {
-  max-width: 1200px;
+  position: relative;
+  display: grid;
+  grid-template-areas:
+    'announcement announcement'
+    'messages userlist'
+    'input userlist';
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr 220px;
   width: 98%;
+  max-width: 1200px;
   height: calc(100vh - 85px);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 220px;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    "announcement announcement"
-    "messages userlist"
-    "input userlist";
-  background: rgba(255, 255, 255, 0.95);
-  transition: all 0.3s ease;
-  border-radius: 24px;
   overflow: visible;
-  position: relative;
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1) inset,
     0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 
   .announcement {
     grid-area: announcement;
@@ -28,18 +26,18 @@
     border-radius: 12px;
 
     :global(.ant-alert) {
-      border-radius: 12px;
       background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
     }
 
     .announcementContent {
       display: flex;
-      align-items: center;
       gap: 8px;
+      align-items: center;
 
       .announcementIcon {
-        font-size: 16px;
         color: #1890ff;
+        font-size: 16px;
       }
     }
   }
@@ -47,11 +45,11 @@
   // 添加漂浮的摸鱼元素
   .floating-fish {
     position: absolute;
-    font-size: 24px;
-    pointer-events: none;
     z-index: 1;
+    font-size: 24px;
     opacity: 0.8;
     animation: float 8s ease-in-out infinite;
+    pointer-events: none;
 
     &.fish1 {
       top: 10%;
@@ -83,8 +81,8 @@
     }
 
     &.bubble2 {
-      bottom: 25%;
       right: -30px;
+      bottom: 25%;
       font-size: 20px;
       animation: floatUp 7s ease-in-out infinite;
       animation-delay: 3s;
@@ -161,13 +159,11 @@
   }
 
   &::before {
-    content: '';
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0;
-    border-radius: 24px;
+    left: 0;
     padding: 1px;
     background: linear-gradient(
       135deg,
@@ -175,27 +171,25 @@
       rgba(255, 255, 255, 0.1) 50%,
       rgba(255, 255, 255, 0.4) 100%
     );
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+    border-radius: 24px;
+    content: '';
+    pointer-events: none;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    pointer-events: none;
   }
 
   @media screen and (max-width: 768px) {
+    grid-template-areas:
+      'messages'
+      'input';
+    grid-template-rows: 1fr auto;
+    grid-template-columns: 1fr;
     width: 100%;
     height: calc(100vh - 48px);
     margin: 0;
     border-radius: 0;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "messages"
-      "input";
-    grid-template-rows: 1fr auto;
 
     .announcement {
       display: none;
@@ -220,29 +214,29 @@
   }
 
   .messageContainer {
-    grid-area: messages;
-    padding: 20px;
-    overflow-y: auto;
-    padding-bottom: 20px;
+    position: relative;
     display: flex;
     flex-direction: column;
+    grid-area: messages;
     gap: 12px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
+    height: calc(100% - 20px);
     margin: 10px;
+    margin-bottom: 0;
+    padding: 20px;
+    padding-bottom: 20px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    position: relative;
-    height: calc(100% - 20px);
-    margin-bottom: 0;
+    backdrop-filter: blur(10px);
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
 
     @media screen and (max-width: 768px) {
-      margin: 8px;
-      padding: 10px;
       gap: 10px;
       height: calc(100% - 70px);
+      margin: 8px;
+      padding: 10px;
     }
 
     &::-webkit-scrollbar {
@@ -261,23 +255,23 @@
 
     .loadingWrapper {
       display: flex;
-      justify-content: center;
       align-items: center;
-      padding: 16px;
+      justify-content: center;
       width: 100%;
+      margin-bottom: 8px;
+      padding: 16px;
       background: rgba(255, 255, 255, 0.8);
       border-radius: 8px;
-      margin-bottom: 8px;
     }
 
     .messageItem {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       width: fit-content;
       max-width: 85%;
       margin-bottom: 8px;
-      position: relative;
 
       @media screen and (max-width: 768px) {
         max-width: 90%;
@@ -288,17 +282,17 @@
         padding-right: 40px;
 
         .messageHeader {
+          position: relative;
           display: flex;
           flex-direction: row-reverse;
           align-items: center;
-          position: relative;
           width: 100%;
           margin-bottom: 4px;
 
           .avatar {
             position: absolute;
-            right: -40px;
             top: 0;
+            right: -40px;
             width: 32px;
             height: 32px;
           }
@@ -312,40 +306,40 @@
           .senderName {
             display: flex;
             flex-direction: row-reverse;
-            align-items: center;
             gap: 4px;
+            align-items: center;
           }
         }
 
         .messageContent {
-          margin-top: 4px;
-          background: linear-gradient(135deg, #ffa768 0%, #ffcba4 100%);
-          color: white;
-          border-radius: 12px 4px 12px 12px;
-          box-shadow: 0 2px 8px rgba(255, 167, 104, 0.15);
-          margin-right: 0;
           align-self: flex-end;
           width: fit-content;
           min-width: 50px;
+          margin-top: 4px;
+          margin-right: 0;
           margin-left: 0;
+          color: white;
+          background: linear-gradient(135deg, #ffa768 0%, #ffcba4 100%);
+          border-radius: 12px 4px 12px 12px;
+          box-shadow: 0 2px 8px rgba(255, 167, 104, 0.15);
         }
 
         .timestamp {
-          text-align: right;
-          margin: 2px 0 0 0;
           align-self: flex-end;
+          margin: 2px 0 0 0;
+          text-align: right;
         }
 
         .messageFooter {
-          margin-right: 0;
           justify-content: flex-end;
+          margin-right: 0;
         }
       }
 
       .messageHeader {
         display: flex;
-        align-items: center;
         gap: 6px;
+        align-items: center;
         width: 100%;
         margin-bottom: 4px;
 
@@ -361,24 +355,24 @@
           }
 
           .avatarWithFrame {
+            display: inline-block;
             width: 32px;
             height: 32px;
-            display: inline-block;
           }
 
           .levelBadge {
             position: absolute;
             top: -4px;
             left: -4px;
+            z-index: 1;
+            display: flex;
+            gap: 2px;
+            align-items: center;
+            padding: 1px 4px;
+            color: #999;
             font-size: 11px;
             background: #f5f7fa;
-            padding: 1px 4px;
             border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            color: #999;
-            z-index: 1;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
           }
         }
@@ -391,17 +385,17 @@
         }
 
         .senderName {
-          font-size: 12px;
-          color: #999;
           display: flex;
-          align-items: center;
           gap: 4px;
+          align-items: center;
+          color: #999;
+          font-size: 12px;
           line-height: 1;
           white-space: nowrap;
 
           .adminIcon {
-            font-size: 12px;
             color: #ffd700;
+            font-size: 12px;
             filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.3));
           }
 
@@ -412,25 +406,25 @@
       }
 
       .messageContent {
-        margin-top: 4px;
-        background: white;
-        padding: 8px 12px;
-        border-radius: 4px 12px 12px 12px;
-        line-height: 1.4;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-        color: #1a1c1e;
-        word-break: break-word;
-        max-width: 100%;
         width: fit-content;
         min-width: 50px;
-        font-size: 13px;
+        max-width: 100%;
+        margin-top: 4px;
         margin-left: 40px;
+        padding: 8px 12px;
+        color: #1a1c1e;
+        font-size: 13px;
+        line-height: 1.4;
         white-space: pre-wrap;
+        word-break: break-word;
         overflow-wrap: break-word;
+        background: white;
+        border-radius: 4px 12px 12px 12px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
         .messageImage {
           max-width: 200px;
           border-radius: 4px;
-          transition: transform .3s ease;
+          transition: transform 0.3s ease;
         }
         .quotedMessage {
           margin-bottom: 8px;
@@ -441,11 +435,11 @@
 
           .quotedMessageHeader {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             margin-bottom: 4px;
-            font-size: 12px;
             color: #666;
+            font-size: 12px;
 
             .quotedMessageSender {
               font-weight: 500;
@@ -457,11 +451,11 @@
           }
 
           .quotedMessageContent {
-            font-size: 13px;
-            color: #666;
-            overflow: hidden;
-            text-overflow: ellipsis;
             display: -webkit-box;
+            overflow: hidden;
+            color: #666;
+            font-size: 13px;
+            text-overflow: ellipsis;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
           }
@@ -469,10 +463,10 @@
       }
 
       .timestamp {
-        font-size: 10px;
-        color: #bbb;
-        padding: 0 4px;
         margin: 2px 0 0 40px;
+        padding: 0 4px;
+        color: #bbb;
+        font-size: 10px;
       }
 
       &:hover {
@@ -496,28 +490,28 @@
       }
 
       &.mentioned {
+        margin: -8px;
+        padding: 8px;
         background-color: rgba(230, 247, 255, 0.8);
         border-radius: 12px;
-        padding: 8px;
-        margin: -8px;
       }
     }
   }
 
   .userList {
-    grid-area: userlist;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border-left: 1px solid rgba(238, 238, 238, 0.5);
-    padding: 12px;
-    margin: 12px 12px 12px 0;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
     position: relative;
     display: flex;
     flex-direction: column;
+    grid-area: userlist;
     height: calc(100% - 24px);
+    margin: 12px 12px 12px 0;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border-left: 1px solid rgba(238, 238, 238, 0.5);
+    border-radius: 12px;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 
     @media screen and (max-width: 768px) {
       display: none !important;
@@ -528,22 +522,22 @@
     }
 
     .userListHeader {
-      font-weight: 600;
-      font-size: 13px;
+      flex-shrink: 0;
       margin-bottom: 10px;
       padding-bottom: 6px;
-      border-bottom: 1px solid rgba(238, 238, 238, 0.5);
+      color: transparent;
+      font-weight: 600;
+      font-size: 13px;
+      text-align: center;
       background: linear-gradient(45deg, #1677ff, #36cfc9);
       -webkit-background-clip: text;
-      color: transparent;
-      text-align: center;
-      flex-shrink: 0;
+      border-bottom: 1px solid rgba(238, 238, 238, 0.5);
     }
 
     .userListContent {
-      overflow-y: hidden;
       flex: 1;
       padding-bottom: 20px;
+      overflow-y: hidden;
       > div {
         scrollbar-width: thin;
         scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
@@ -565,19 +559,19 @@
 
     .userItem {
       display: flex;
-      align-items: center;
       gap: 6px;
+      align-items: center;
+      margin-bottom: 4px;
       padding: 6px;
+      background: rgba(255, 255, 255, 0.5);
       border-radius: 10px;
       cursor: pointer;
       transition: all 0.2s;
-      background: rgba(255, 255, 255, 0.5);
-      margin-bottom: 4px;
 
       &:hover {
         background: rgba(255, 255, 255, 0.9);
-        transform: translateX(-4px);
         box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+        transform: translateX(-4px);
       }
 
       .userInfo {
@@ -585,27 +579,27 @@
         min-width: 0;
 
         .userName {
-          font-size: 12px;
-          color: #666;
-          white-space: nowrap;
           overflow: hidden;
+          color: #666;
+          font-size: 12px;
+          white-space: nowrap;
           text-overflow: ellipsis;
         }
 
         .userStatus {
-          font-size: 11px;
-          color: #999;
           margin-top: 1px;
+          color: #999;
+          font-size: 11px;
         }
       }
 
       .levelBadge {
-        padding: 1px 4px;
-        border-radius: 6px;
-        background: #f5f7fa;
-        font-size: 11px;
         flex-shrink: 0;
+        padding: 1px 4px;
         color: #999;
+        font-size: 11px;
+        background: #f5f7fa;
+        border-radius: 6px;
       }
     }
     .userItem:last-of-type {
@@ -614,22 +608,22 @@
   }
 
   .inputArea {
-    grid-area: input;
+    position: relative;
     display: flex;
     flex-direction: column;
+    grid-area: input;
     gap: 8px;
+    margin: 0 10px 10px 10px;
     padding: 16px;
     background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    margin: 0 10px 10px 10px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    position: relative;
+    backdrop-filter: blur(10px);
 
     .imagePreview {
+      margin-bottom: 8px;
       padding: 4px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-      margin-bottom: 8px;
 
       .previewWrapper {
         position: relative;
@@ -639,15 +633,15 @@
           width: 64px;
           height: 64px;
           object-fit: cover;
+          border: 2px solid rgba(255, 255, 255, 0.8);
           border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
           cursor: pointer;
           transition: all 0.3s ease;
-          border: 2px solid rgba(255, 255, 255, 0.8);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
           &:hover {
-            transform: scale(1.02);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: scale(1.02);
           }
         }
 
@@ -659,7 +653,7 @@
           color: #ff4d4f;
           background: #fff;
           border-radius: 50%;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
           transition: all 0.3s ease;
 
           &:hover {
@@ -673,23 +667,24 @@
 
     .inputRow {
       display: flex;
-      align-items: center;
       gap: 8px;
+      align-items: center;
       width: 100%;
 
       .chatTextArea {
         flex: 1;
+        padding: 8px 16px;
+        font-size: 14px;
+        line-height: 1.5;
         background: rgba(255, 255, 255, 0.8);
         border: 1px solid rgba(0, 0, 0, 0.06);
         border-radius: 20px;
-        transition: all 0.3s ease;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        transition: all 0.3s ease;
         resize: none;
-        padding: 8px 16px;
-        line-height: 1.5;
-        font-size: 14px;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           border-color: #40a9ff;
           box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
         }
@@ -723,22 +718,22 @@
           justify-content: center;
           width: 36px;
           height: 36px;
-          border-radius: 18px;
-          background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
           color: white;
-          transition: all 0.3s ease;
+          background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
           border: none;
+          border-radius: 18px;
           box-shadow: 0 2px 6px rgba(24, 144, 255, 0.2);
+          transition: all 0.3s ease;
 
           &:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
             background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+            box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+            transform: translateY(-1px);
           }
 
           &:active {
-            transform: translateY(0);
             box-shadow: 0 2px 4px rgba(24, 144, 255, 0.2);
+            transform: translateY(0);
           }
 
           .anticon {
@@ -753,33 +748,33 @@
         justify-content: center;
         min-width: 80px;
         height: 36px;
+        margin-left: 8px;
         padding: 0 16px;
-        border-radius: 18px;
-        background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
         color: white;
         font-weight: 500;
-        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
         border: none;
+        border-radius: 18px;
         box-shadow: 0 2px 6px rgba(24, 144, 255, 0.2);
-        margin-left: 8px;
+        transition: all 0.3s ease;
 
         &:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
           background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+          box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+          transform: translateY(-1px);
         }
 
         &:active {
-          transform: translateY(0);
           box-shadow: 0 2px 4px rgba(24, 144, 255, 0.2);
+          transform: translateY(0);
         }
 
         &:disabled {
-          background: #d9d9d9;
           color: rgba(0, 0, 0, 0.25);
+          background: #d9d9d9;
           box-shadow: none;
-          cursor: not-allowed;
           transform: none;
+          cursor: not-allowed;
         }
 
         .anticon {
@@ -819,22 +814,22 @@
       }
 
       .ant-btn {
-        border: none;
-        background: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
-        color: white;
-        border-radius: 18px;
-        padding: 0 20px;
-        height: 36px;
         display: flex;
-        align-items: center;
         gap: 4px;
-        transition: all 0.3s ease;
+        align-items: center;
+        height: 36px;
+        padding: 0 20px;
+        color: white;
+        background: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
+        border: none;
+        border-radius: 18px;
         box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
+        transition: all 0.3s ease;
 
         &:hover {
           background: linear-gradient(135deg, #40a9ff 0%, #69c0ff 100%);
-          transform: translateY(-1px);
           box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+          transform: translateY(-1px);
         }
 
         .anticon {
@@ -857,22 +852,22 @@
 
   .messageFooter {
     display: flex;
-    align-items: center;
     gap: 8px;
+    align-items: center;
     margin-top: 4px;
-    font-size: 12px;
-    color: #999;
     padding: 0 4px;
+    color: #999;
+    font-size: 12px;
 
     .timestamp {
       flex: 1;
     }
 
     .revokeText {
+      color: #ff4d4f;
       cursor: pointer;
       opacity: 0;
       transition: opacity 0.3s ease;
-      color: #ff4d4f;
 
       &:hover {
         text-decoration: underline;
@@ -880,10 +875,10 @@
     }
 
     .quoteText {
+      color: #1890ff;
       cursor: pointer;
       opacity: 0;
       transition: opacity 0.3s ease;
-      color: #1890ff;
 
       &:hover {
         text-decoration: underline;
@@ -903,22 +898,22 @@
   }
 
   .quotePreview {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 8px;
     padding: 8px 12px;
     background-color: #f5f5f5;
     border-radius: 4px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
 
     .quotePreviewContent {
       flex: 1;
       overflow: hidden;
 
       .quotePreviewSender {
-        font-weight: 500;
         margin-right: 8px;
         color: #666;
+        font-weight: 500;
       }
 
       .quotePreviewText {
@@ -928,8 +923,8 @@
     }
 
     .removeQuote {
-      padding: 4px;
       margin-left: 8px;
+      padding: 4px;
       color: #999;
 
       &:hover {
@@ -944,12 +939,12 @@
   em-emoji-picker {
     width: 320px !important;
     height: 350px !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     --border-radius: 8px;
     --category-icon-size: 18px;
     --font-size: 14px;
     --rgb-accent: 24, 144, 255; // antd 的主题蓝色
-    border: none !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -957,9 +952,9 @@
   :global {
     .ant-popover-inner {
       padding: 0;
+      overflow: hidden;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      overflow: hidden;
     }
 
     .ant-popover-arrow {
@@ -973,11 +968,11 @@
 }
 
 .urlCard {
-  margin: 8px 0;
   max-width: 300px;
-  border-radius: 8px;
+  margin: 8px 0;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
   backdrop-filter: blur(10px);
 
   :global {
@@ -1013,38 +1008,33 @@
 }
 
 .adminTag {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  border-radius: 6px;
-  padding: 1px 6px;
   margin-left: 6px;
-  font-size: 11px;
-  color: #fff;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  animation: slideInFromLeft 0.5s ease-out;
-  transform-origin: left center;
-  transform: scale(0.85);
-  position: relative;
+  padding: 1px 6px;
   overflow: hidden;
+  color: #fff;
+  font-size: 11px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 
   // 摸鱼官的默认样式
   background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+  border-radius: 6px;
   box-shadow: 0 2px 4px rgba(255, 71, 87, 0.3);
+  transform: scale(0.85);
+  transform-origin: left center;
+  animation: slideInFromLeft 0.5s ease-out;
 
   &::before {
-    content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     animation: shine 2s infinite;
+    content: '';
   }
 
   .adminText {
@@ -1060,7 +1050,8 @@
   }
 
   &.levelTagExpert {
-    background: linear-gradient(135deg,
+    background: linear-gradient(
+      135deg,
       #ff9a9e 0%,
       #fad0c4 20%,
       #fad0c4 40%,
@@ -1120,12 +1111,12 @@
 
 @keyframes slideInFromLeft {
   0% {
-    opacity: 0;
     transform: translateX(-10px) scale(0.85);
+    opacity: 0;
   }
   100% {
-    opacity: 1;
     transform: translateX(0) scale(0.85);
+    opacity: 1;
   }
 }
 
@@ -1153,14 +1144,14 @@
 }
 
 .userShortId {
-  font-size: 11px;
+  padding: 4px 8px;
   color: #aaa;
+  color: #fff;
+  font-size: 11px;
   font-family: monospace;
   letter-spacing: 0.5px;
-  padding: 4px 8px;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 4px;
-  color: #fff;
   backdrop-filter: blur(4px);
 }
 
@@ -1168,49 +1159,49 @@
   position: absolute;
   top: -8px;
   left: 50%;
-  transform: translateX(-50%);
   z-index: 1;
   white-space: nowrap;
+  transform: translateX(-50%);
 }
 
 .userInfoCard {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 12px;
-  width: 220px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
+  width: 220px;
+  padding: 12px;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
 
   &::before {
-    content: '';
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
+    left: 0;
     z-index: 0;
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
+    content: '';
   }
 
   &::after {
-    content: '💭';
     position: absolute;
     top: -10px;
     right: -10px;
     font-size: 24px;
-    opacity: 0.3;
     transform: rotate(15deg);
+    opacity: 0.3;
+    content: '💭';
   }
 
   .userInfoCardHeader {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
     position: relative;
     z-index: 1;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
 
     .avatarWrapper {
       position: relative;
@@ -1219,9 +1210,9 @@
       height: 48px;
 
       .avatarWithFrame {
+        display: inline-block;
         width: 48px;
         height: 48px;
-        display: inline-block;
       }
 
       .floatingFish {
@@ -1239,32 +1230,32 @@
 
       .userInfoCardNameRow {
         display: flex;
-        align-items: center;
         gap: 8px;
-        margin-bottom: 4px;
+        align-items: center;
         height: 24px;
+        margin-bottom: 4px;
 
         .userInfoCardName {
-          font-size: 14px;
-          font-weight: 500;
-          color: #1a1c1e;
-          white-space: nowrap;
           overflow: hidden;
-          text-overflow: ellipsis;
+          color: #1a1c1e;
+          font-weight: 500;
+          font-size: 14px;
           line-height: 24px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
 
         .userInfoCardLevel {
           display: flex;
-          align-items: center;
           gap: 2px;
+          align-items: center;
+          height: 20px;
           padding: 2px 6px;
+          color: #4facfe;
+          font-size: 12px;
+          white-space: nowrap;
           background: rgba(79, 172, 254, 0.1);
           border-radius: 4px;
-          font-size: 12px;
-          color: #4facfe;
-          white-space: nowrap;
-          height: 20px;
 
           .levelEmoji {
             font-size: 12px;
@@ -1278,37 +1269,37 @@
 
       // 添加用户唯一标识符样式
       .userShortId {
-        font-size: 11px;
-        color: #aaa;
         margin-top: -2px;
         margin-bottom: 4px;
+        color: #aaa;
+        font-size: 11px;
         font-family: monospace;
         letter-spacing: 0.5px;
       }
 
       .titlesContainer {
         display: flex;
-        align-items: center;
+        flex-wrap: nowrap;
         gap: 4px;
+        align-items: center;
+        min-height: 24px;
         margin-top: 4px;
         margin-bottom: 4px;
-        min-height: 24px;
-        flex-wrap: nowrap;
 
         .adminTag {
-          transform-origin: left center;
           margin-left: 0;
+          transform-origin: left center;
         }
 
         .expandButton {
-          padding: 0 2px;
-          height: 20px;
-          font-size: 12px;
-          color: #999;
-          transition: all 0.3s;
-          margin-left: 2px;
           display: flex;
           align-items: center;
+          height: 20px;
+          margin-left: 2px;
+          padding: 0 2px;
+          color: #999;
+          font-size: 12px;
+          transition: all 0.3s;
 
           &:hover {
             color: #1890ff;
@@ -1319,12 +1310,12 @@
   }
 
   .userInfoCardPoints {
-    margin-top: 4px;
-    font-size: 12px;
-    color: #666;
     display: flex;
-    align-items: center;
     gap: 4px;
+    align-items: center;
+    margin-top: 4px;
+    color: #666;
+    font-size: 12px;
 
     .pointsEmoji {
       font-size: 14px;
@@ -1337,10 +1328,10 @@
   }
 
   .userInfoCardLocation {
-    margin-top: 4px;
     display: flex;
-    align-items: center;
     gap: 4px;
+    align-items: center;
+    margin-top: 4px;
     color: #666;
     font-size: 12px;
 
@@ -1389,8 +1380,8 @@
   // 为 Popconfirm 添加特殊样式
   .ant-popconfirm {
     .ant-popover-inner {
-      background: white;
       padding: 12px 16px;
+      background: white;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
   }
@@ -1406,43 +1397,43 @@
 }
 
 .filePreview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: 8px 0;
   padding: 8px;
   background-color: #f5f5f5;
   border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 
   .previewWrapper {
     display: flex;
-    align-items: center;
     gap: 8px;
+    align-items: center;
   }
 
   .fileInfo {
     display: flex;
-    align-items: center;
     gap: 8px;
+    align-items: center;
   }
 
   .fileIcon {
-    font-size: 20px;
     color: #1890ff;
+    font-size: 20px;
   }
 
   .fileName {
-    color: #666;
     max-width: 200px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    color: #666;
     white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .removeFile {
-    color: #ff4d4f;
-    padding: 4px;
     margin-left: 8px;
+    padding: 4px;
+    color: #ff4d4f;
 
     &:hover {
       color: #ff7875;
@@ -1451,20 +1442,20 @@
 }
 
 .fileButton {
-  padding: 4px 8px;
-  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #d9d9d9;
-  background: #fff;
+  height: 32px;
+  padding: 4px 8px;
   color: #666;
+  background: #fff;
+  border: 1px solid #d9d9d9;
   transition: all 0.3s;
 
   &:hover {
     color: #1890ff;
-    border-color: #1890ff;
     background: #fff;
+    border-color: #1890ff;
   }
 
   &:disabled {
@@ -1476,38 +1467,38 @@
 }
 
 .inviteMessage {
+  margin: 4px 0;
+  padding: 12px;
   background: linear-gradient(135deg, #f6f8ff 0%, #f0f4ff 100%);
   border: 1px solid #e6e9ff;
   border-radius: 12px;
-  padding: 12px;
-  margin: 4px 0;
 }
 
 .inviteContent {
   display: flex;
+  gap: 12px;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
 }
 
 .inviteText {
-  font-size: 14px;
   color: #4a5568;
   font-weight: 500;
+  font-size: 14px;
 }
 
 .inviteButton {
+  padding: 4px 12px;
+  color: white;
+  font-size: 13px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
-  color: white;
-  padding: 4px 12px;
   border-radius: 6px;
-  font-size: 13px;
   transition: all 0.2s ease;
 
   &:hover {
-    transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    transform: translateY(-1px);
   }
 }
 
@@ -1519,25 +1510,25 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    z-index: 1;
     width: 160%;
     height: 160%;
-    pointer-events: none;
-    z-index: 1;
+    transform: translate(-50%, -50%);
     transition: all 0.3s ease;
+    pointer-events: none;
   }
 }
 
 .mentionList {
+  min-width: 200px;
+  max-height: 200px;
+  padding: 8px;
+  overflow-y: auto;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-height: 200px;
-  overflow-y: auto;
-  padding: 8px;
   backdrop-filter: blur(10px);
-  min-width: 200px;
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -1557,11 +1548,11 @@
 .mentionItem {
   display: flex;
   align-items: center;
+  margin-bottom: 4px;
   padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  border-radius: 8px;
-  margin-bottom: 4px;
 
   &:hover {
     background: rgba(24, 144, 255, 0.1);
@@ -1590,25 +1581,25 @@
 .redPacketMessage {
   .redPacketContent {
     display: flex;
-    align-items: flex-start;
     gap: 12px;
+    align-items: flex-start;
     padding: 12px;
     background: #fff1f0;
-    border-radius: 8px;
     border: 1px solid #ffccc7;
+    border-radius: 8px;
   }
 
   .redPacketInfo {
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 8px;
   }
 
   .redPacketTitle {
     display: flex;
-    align-items: center;
     gap: 4px;
+    align-items: center;
   }
 
   .redPacketText {
@@ -1624,14 +1615,14 @@
 
   .redPacketActions {
     display: flex;
-    align-items: center;
     gap: 8px;
+    align-items: center;
   }
 
   .redPacketIcon {
+    margin-top: 2px;
     color: #ff4d4f;
     font-size: 24px;
-    margin-top: 2px;
   }
 
   .grabRedPacketButton {
@@ -1642,16 +1633,16 @@
       border-color: #ff7875;
     }
     &:disabled {
+      color: #fff;
       background: #ffccc7;
       border-color: #ffccc7;
-      color: #fff;
     }
   }
 
   .viewRecordsButton {
-    color: #ff4d4f;
-    padding: 0;
     height: auto;
+    padding: 0;
+    color: #ff4d4f;
     &:hover {
       color: #ff7875;
     }
@@ -1660,14 +1651,14 @@
 
 .redPacketForm {
   .formItem {
-    margin-bottom: 16px;
     display: flex;
     align-items: center;
+    margin-bottom: 16px;
 
     .label {
       width: 80px;
-      text-align: right;
       margin-right: 8px;
+      text-align: right;
     }
   }
 }
@@ -1675,8 +1666,8 @@
 .redPacketRecords {
   .recordsList {
     max-height: 400px;
-    overflow-y: auto;
     padding-right: 8px;
+    overflow-y: auto;
 
     &::-webkit-scrollbar {
       width: 6px;
@@ -1714,37 +1705,37 @@
       overflow: hidden;
 
       .userName {
-        font-size: 14px;
-        color: #333;
-        margin-bottom: 4px;
         display: flex;
-        align-items: center;
         gap: 8px;
+        align-items: center;
+        margin-bottom: 4px;
+        color: #333;
+        font-size: 14px;
 
         .luckyKing {
-          font-size: 12px;
-          color: #ff4d4f;
-          background: #fff1f0;
-          padding: 2px 6px;
-          border-radius: 4px;
-          border: 1px solid #ffccc7;
           display: inline-flex;
-          align-items: center;
           gap: 2px;
+          align-items: center;
+          padding: 2px 6px;
+          color: #ff4d4f;
+          font-size: 12px;
+          background: #fff1f0;
+          border: 1px solid #ffccc7;
+          border-radius: 4px;
           animation: shine 2s infinite;
         }
       }
 
       .grabTime {
-        font-size: 12px;
         color: #999;
+        font-size: 12px;
       }
     }
 
     .amount {
-      font-size: 16px;
       color: #ff4d4f;
       font-weight: 500;
+      font-size: 16px;
     }
   }
 
@@ -1757,8 +1748,8 @@
     color: #999;
 
     .emptyIcon {
-      font-size: 48px;
       margin-bottom: 16px;
+      font-size: 48px;
     }
   }
 }
@@ -1796,13 +1787,13 @@
 .redPacketModalTitle {
   display: flex;
   align-items: center;
-  font-size: 18px;
   font-weight: 500;
+  font-size: 18px;
 
   .redPacketTitleIcon {
     margin-right: 8px;
-    font-size: 20px;
     color: #ff4d4f;
+    font-size: 20px;
   }
 }
 
@@ -1817,23 +1808,23 @@
     .label {
       display: block;
       margin-bottom: 8px;
-      font-size: 14px;
       color: #333;
+      font-size: 14px;
     }
   }
 
   .redPacketTypeGroup {
-    width: 100%;
     display: flex;
     justify-content: space-between;
+    width: 100%;
 
     :global {
       .ant-radio-button-wrapper {
         flex: 1;
-        text-align: center;
         height: 40px;
-        line-height: 40px;
         padding: 0 16px;
+        line-height: 40px;
+        text-align: center;
 
         &:first-child {
           border-radius: 4px 0 0 4px;
@@ -1857,8 +1848,8 @@
 
     :global {
       .ant-input-prefix {
-        color: #ff4d4f;
         margin-right: 4px;
+        color: #ff4d4f;
       }
     }
   }
@@ -1883,23 +1874,23 @@
 
 .userItemPlaceholder {
   display: flex;
+  gap: 12px;
   align-items: center;
   padding: 8px;
-  gap: 12px;
-  animation: shimmer 1.5s infinite linear;
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
     rgba(255, 255, 255, 0.1) 50%,
     rgba(255, 255, 255, 0) 100%
   );
+  animation: shimmer 1.5s infinite linear;
 }
 
 .avatarPlaceholder {
   width: 28px;
   height: 28px;
-  border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
 }
 
 .infoPlaceholder {
@@ -1909,9 +1900,9 @@
 .namePlaceholder {
   width: 60%;
   height: 16px;
+  margin-bottom: 4px;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  margin-bottom: 4px;
 }
 
 .statusPlaceholder {
@@ -1953,9 +1944,9 @@
     .ant-popover-inner {
       padding: 8px;
       background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
     }
   }
 }
@@ -2009,22 +2000,22 @@
 }
 
 .musicMessage {
+  max-width: 500px;
   padding: 8px;
   background: #f5f5f5;
   border-radius: 8px;
-  max-width: 500px;
 
   .musicWrapper {
     display: flex;
-    align-items: center;
     gap: 12px;
+    align-items: center;
   }
 
   .musicCover {
     width: 64px;
     height: 64px;
-    border-radius: 4px;
     object-fit: cover;
+    border-radius: 4px;
   }
 
   .musicContent {
@@ -2034,10 +2025,10 @@
 
   .musicInfo {
     margin-bottom: 8px;
-    font-size: 14px;
-    color: #333;
-    white-space: nowrap;
     overflow: hidden;
+    color: #333;
+    font-size: 14px;
+    white-space: nowrap;
     text-overflow: ellipsis;
   }
 
@@ -2059,17 +2050,17 @@
     overflow: hidden;
 
     .musicTitle {
+      overflow: hidden;
       font-weight: 500;
       white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .musicDesc {
+      overflow: hidden;
       color: #666;
       font-size: 12px;
       white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
     }
   }
@@ -2077,19 +2068,19 @@
 
 .musicPlayer {
   display: flex;
-  align-items: center;
   gap: 12px;
+  align-items: center;
   min-width: 300px;
   max-width: 100%;
+  padding: 8px;
   background: #f5f5f5;
   border-radius: 8px;
-  padding: 8px;
 
   .musicCover {
     width: 48px;
     height: 48px;
-    border-radius: 4px;
     object-fit: cover;
+    border-radius: 4px;
   }
 
   audio {
@@ -2102,21 +2093,21 @@
   position: fixed;
   top: 80px;
   right: 300px;
-  width: 300px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 10px;
+  z-index: 1000;
   display: flex;
   gap: 12px;
+  width: 300px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  backdrop-filter: blur(10px);
 
   .musicCover {
     width: 40px;
     height: 40px;
-    border-radius: 8px;
     object-fit: cover;
+    border-radius: 8px;
   }
 
   .musicInfo {
@@ -2124,29 +2115,29 @@
     min-width: 0;
 
     .musicTitle {
+      margin-bottom: 4px;
+      overflow: hidden;
       font-weight: 500;
       font-size: 14px;
-      margin-bottom: 4px;
       white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .musicArtist {
-      font-size: 12px;
-      color: rgba(0, 0, 0, 0.45);
       margin-bottom: 8px;
-      white-space: nowrap;
       overflow: hidden;
+      color: rgba(0, 0, 0, 0.45);
+      font-size: 12px;
+      white-space: nowrap;
       text-overflow: ellipsis;
     }
 
     .progressBar {
       height: 4px;
-      background: rgba(0, 0, 0, 0.06);
-      border-radius: 2px;
       margin-bottom: 4px;
       overflow: hidden;
+      background: rgba(0, 0, 0, 0.06);
+      border-radius: 2px;
 
       .progress {
         height: 100%;
@@ -2156,15 +2147,15 @@
     }
 
     .timeInfo {
-      font-size: 12px;
       color: rgba(0, 0, 0, 0.45);
+      font-size: 12px;
     }
   }
 
   .controls {
     display: flex;
-    align-items: center;
     gap: 4px;
+    align-items: center;
 
     .ant-btn {
       padding: 4px;
@@ -2173,5 +2164,17 @@
         background: rgba(0, 0, 0, 0.06);
       }
     }
+  }
+}
+
+.muteAlert {
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.chatTextArea {
+  &:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
   }
 }
